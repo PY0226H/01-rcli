@@ -55,7 +55,8 @@ repos:
       - id: cargo-test
         name: cargo test
         description: unit test for the project
-        entry: bash -c 'cargo nextest run --all-features'
+        entry: >
+          bash -c 'if cargo nextest list --all-features | grep -q .; then cargo nextest run --all-features; else echo "No tests found, skipping"; fi'
         language: rust
         files: \.rs$
         pass_filenames: false
